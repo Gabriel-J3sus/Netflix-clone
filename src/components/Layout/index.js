@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../../Services/api';
 
+import Header from '../Header';
 import FeaturedMovie from '../FeaturedMovie';
 import MovieRow from '../MovieRow';
+import Footer from '../Footer';
+import Loading from '../Loading';
 
 function Layout() {
     const [movieList, setMovieList] = useState([]);
     const [featuredData, setFeaturedData] = useState(null);
+    const [blackHeader, setBlackHeader] = useState(false);
 
     useEffect(() => {
       const loadAll = async () => {
@@ -26,9 +30,28 @@ function Layout() {
   
       loadAll();
     }, []);
+
+    useEffect(() => {
+      const scrollListener = () => {
+        if (window.scrollY > 10) {
+          setBlackHeader(true);
+        } else {
+          setBlackHeader(false);
+        }
+      }
+      window.addEventListener('scroll', scrollListener);
+
+      const removescrollListener = () => {
+        window.removeEventListener('scroll', scrollListener);
+      }
+
+      return removescrollListener;
+    }, []);
   
     return (
       <div className="page">
+
+        <Header black={blackHeader} />
 
         {featuredData && 
           <FeaturedMovie item={featuredData} />
@@ -39,6 +62,15 @@ function Layout() {
             <MovieRow key={key} title={item.title} items={item.items}/>
           ))}
         </section>
+
+        <Footer />
+
+        {/*LOADING*/}
+
+        {movieList.length <= 0 &&
+          <Loading />
+        }
+        
       </div>
   );
 }

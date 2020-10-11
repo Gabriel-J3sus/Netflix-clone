@@ -33,6 +33,20 @@ export const Container = styled.div`
             }
         }
     }
+
+    @media (max-width: 760px) {
+        height: 90vh;
+
+        .featured--vertical .featured--horizontal {
+            h2 {
+            font-size: 40px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+        }
+    }
 `;
 
 export const Data = styled.div`
@@ -50,6 +64,11 @@ export const Data = styled.div`
     span:nth-child(1) {
         color: #46d369;
     }
+
+    @media (max-width: 760px) {
+        font-size: 16px;
+    }
+
 `;
 
 export const Description = styled.div`
@@ -59,6 +78,12 @@ export const Description = styled.div`
     color: #999;
 
     max-width: 40%;
+
+    @media (max-width: 760px) {
+        font-size: 14px;
+        max-width: 100%;
+        margin-right: 30px;
+    }
 `;
 
 export const Buttons = styled.div`
@@ -91,4 +116,10 @@ export const Buttons = styled.div`
         background: #333;
         color: #fff;
     }
+
+    @media (max-width: 760px) {
+        a {
+            font-size: 16px;
+        }
+    }    
 `;
