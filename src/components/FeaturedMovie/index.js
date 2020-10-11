@@ -1,11 +1,44 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, Data, Description, Buttons } from './styles';
 
-const FeaturedMovie = () => {
+const FeaturedMovie = ({ item }) => {
+
+  let firstDate = new Date(item.first_air_date);
+  
+  let genres = [];
+  for (let i in item.genres) {
+    genres.push(item.genres[i].name);
+  }
+
   return (
-    <Container>
-      <h1>FeaturedMovie</h1>
+    <Container style={{
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`,
+    }}>
+      <div className="featured--vertical">
+        <div className="featured--horizontal">
+          <h2>{item.original_name}</h2>
+          
+          <Data>
+            <span> {item.vote_average} pontos</span>
+            <span> {firstDate.getFullYear()} </span>
+            <span> {item.number_of_seasons} temporada{item.number_of_seasons !== 1 ? 's' : ''} </span>
+          </Data>
+
+          <Description>
+            {item.overview}
+          </Description>
+
+          <Buttons>
+            <a href="#"> Assistir</a>
+            <a href="#"> + Minha Lista </a>
+          </Buttons>
+
+          <p><strong> Gêneros: </strong> {genres.join(', ')} </p>
+        </div>
+      </div>
     </Container>
   );
 };
